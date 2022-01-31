@@ -9,8 +9,8 @@ import { Request, Response } from "express";
 import writeLog from "@app/helpers/WriteLog";
 import { getProductDTO } from "../dtos/getProductDTO";
 import { IProduct } from "../models/product.model";
-import { createProductDTO } from "../dtos/createProductDTO";
-import { updateProductDTO } from "../dtos/updateProductDTO";
+import createValidate from "../validations/NewProductValidator";
+import updateValidate from "../validations/UpdateProductValidator";
 
 @injectable()
 export class ProductController implements IProductController {
@@ -22,6 +22,13 @@ export class ProductController implements IProductController {
     req: Request,
     res: Response
   ): Promise<Response<getProductDTO>> {
+    const errors = createValidate.resultsValidator(req);
+    if (errors.length > 0) {
+      return res.status(409).json({
+        error: errors,
+      });
+    }
+
     try {
       const result = await this.productService.execute(req.body);
 
@@ -116,6 +123,13 @@ export class ProductController implements IProductController {
     req: Request,
     res: Response
   ): Promise<Response<getProductDTO> | any> {
+    const errors = updateValidate.resultsValidator(req);
+    if (errors.length > 0) {
+      return res.status(409).json({
+        error: errors,
+      });
+    }
+
     try {
       const result = await this.productService.updateOne(
         req.params.id,
@@ -143,6 +157,13 @@ export class ProductController implements IProductController {
     req: Request,
     res: Response
   ): Promise<Response<getProductDTO[]> | any> {
+    const errors = updateValidate.resultsValidator(req);
+    if (errors.length > 0) {
+      return res.status(409).json({
+        error: errors,
+      });
+    }
+
     try {
       const result = await this.productService.updateMany(req.body);
 

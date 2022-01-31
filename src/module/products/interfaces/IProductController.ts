@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { getProductDTO } from "../dtos/getProductDTO";
-import { updateProductDTO } from "../dtos/updateProductDTO";
 
 export interface IProductController {
   create(req: Request, res: Response): Promise<Response<getProductDTO>>;

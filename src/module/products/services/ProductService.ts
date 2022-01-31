@@ -3,12 +3,12 @@ import { inject, injectable } from "tsyringe";
 import { createProductDTO } from "../dtos/createProductDTO";
 import { updateProductDTO } from "../dtos/updateProductDTO";
 import { IProductService } from "../interfaces/IProductService";
-import { IProduct, IProductModel } from "../models/product.model";
+import { IProduct, IProductSchema } from "../interfaces/IProductModel";
 
 @injectable()
 export class ProductService implements IProductService {
   constructor(
-    @inject("ProductModel") private readonly productModel: IProductModel
+    @inject("ProductModel") private readonly productModel: IProductSchema
   ) {}
 
   public async execute(

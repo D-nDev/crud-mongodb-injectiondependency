@@ -8,7 +8,7 @@ import {
 import { Request, Response } from "express";
 import writeLog from "@app/helpers/WriteLog";
 import { getProductDTO } from "../dtos/getProductDTO";
-import { IProduct } from "../models/product.model";
+import { IProduct } from "../interfaces/IProductModel";
 import createValidate from "../validations/NewProductValidator";
 import updateValidate from "../validations/UpdateProductValidator";
 
@@ -53,11 +53,15 @@ export class ProductController implements IProductController {
       } else {
         return res.status(200).send(result);
       }
-    } catch (error) {
-      writeLog(error, "ProductController");
-      return res
-        .status(500)
-        .send({ error: "An error has occured, check logs for more details" });
+    } catch (error: any) {
+      if (error["name"] == "CastError") {
+        return res.status(400).send({ error: "ID Malformated" });
+      } else {
+        writeLog(error, "ProductController");
+        return res
+          .status(500)
+          .send({ error: "An error has occured, check logs for more details" });
+      }
     }
   }
 
@@ -94,11 +98,15 @@ export class ProductController implements IProductController {
       } else {
         return res.status(200).send({ success: "Product deleted" });
       }
-    } catch (error) {
-      writeLog(error, "ProductController");
-      return res
-        .status(500)
-        .send({ error: "An error has occured, check logs for more details" });
+    } catch (error: any) {
+      if (error["name"] == "CastError") {
+        return res.status(400).send({ error: "ID Malformated" });
+      } else {
+        writeLog(error, "ProductController");
+        return res
+          .status(500)
+          .send({ error: "An error has occured, check logs for more details" });
+      }
     }
   }
 

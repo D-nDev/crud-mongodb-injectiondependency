@@ -1,7 +1,6 @@
 import { createProductDTO } from "../dtos/createProductDTO";
-import { getProductDTO } from "../dtos/getProductDTO";
 import { updateProductDTO } from "../dtos/updateProductDTO";
-import { IProduct } from "../models/product.model";
+import { IProduct } from "../interfaces/IProductModel";
 
 export interface IProductService {
   execute(data: createProductDTO): Promise<IProduct & { _id: any }>;

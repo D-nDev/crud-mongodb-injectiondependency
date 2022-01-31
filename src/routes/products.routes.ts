@@ -18,5 +18,21 @@ router.get(
   "/products",
   ProductControllerContainer.getMany.bind(ProductControllerContainer)
 );
+router.delete(
+  "/deleteoneproduct/:id",
+  ProductControllerContainer.deleteOne.bind(ProductControllerContainer)
+);
+router.delete(
+  "/deleteallproducts",
+  ProductControllerContainer.deleteAll.bind(ProductControllerContainer)
+);
+router.patch(
+  "/updateoneproduct/:id",
+  ProductControllerContainer.updateOne.bind(ProductControllerContainer)
+);
+router.patch(
+  "/updateallproducts",
+  ProductControllerContainer.updateMany.bind(ProductControllerContainer)
+);
 
 export default router;

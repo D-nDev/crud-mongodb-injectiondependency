@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getProductDTO } from "../dtos/getProductDTO";
+import { updateProductDTO } from "../dtos/updateProductDTO";
 
 export interface IProductController {
   create(req: Request, res: Response): Promise<Response<getProductDTO>>;
@@ -8,4 +9,11 @@ export interface IProductController {
     req: Request,
     res: Response
   ): Promise<Response<getProductDTO[]> | any>;
+  deleteOne(req: Request, res: Response): Promise<Response<any>>;
+  deleteAll(req: Request, res: Response): Promise<Response<any>>;
+  updateOne(req: Request, res: Response): Promise<Response<getProductDTO>>;
+}
+
+export interface IProductDelete {
+  deletedCount: number;
 }

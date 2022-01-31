@@ -25,7 +25,7 @@ Crud API using mongoose as ODM for MongoDB, as well using Dependency Injection a
 
 ## 🏁 Running
 
-## Dependencies(Using Docker)
+<h3><strong>Dependencies(Using Docker)</strong></h3>
 
 - Visual Studio Code OR another Modern IDE
 - Docker
@@ -58,7 +58,7 @@ Server will be available at:
 
 <hr>
 
-## Dependencies(If you'll not use docker)
+<h3><strong>Dependencies(If you'll not use docker)</strong></h3>
 
 For this project you'll need:
 

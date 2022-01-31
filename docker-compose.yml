@@ -1,0 +1,72 @@
+version: '3.5'
+
+services:
+  mongodb-primary:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=123456
+      - MONGODB_REPLICA_SET_KEY=123456789
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=123456
+      - MONGODB_DATABASE=products
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb-primary:27017/products --quiet
+      interval: 20s
+      timeout: 20s
+      retries: 7
+      start_period: 40s
+
+    volumes:
+      - 'mongodb_master_data:/bitnami'
+
+  mongodb-secondary:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - 27027:27017
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=123456
+      - MONGODB_REPLICA_SET_KEY=123456789
+
+  mongodb-arbiter:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - 27037:27017
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=123456
+      - MONGODB_REPLICA_SET_KEY=123456789
+
+  products-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mongodb-primary:
+        condition: service_healthy
+    ports:
+      - 4000:4000
+    environment:
+      - API_MONGO_USER=root
+      - API_MONGO_PASSWORD=123456
+      - API_MONGO_DATABASE=products
+      - DOCKER=YES
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+
+volumes:
+  mongodb_master_data:
+    driver: local

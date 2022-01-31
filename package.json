@@ -6,16 +6,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
-    "copy-logs": "cp -r ./src/logs/ ./dist/logs/",
     "build": "npx ttsc",
-    "build:docker": "npx ts-node --compiler ttypescript && npx prisma migrate dev --name init && npm run start:prod:docker:watch",
+    "build:docker": "npx ttsc && npm run start:prod:docker:watch",
     "start": "node dist/server.js",
     "start:prod:docker": "node dist/server.js",
     "start:prod:docker:watch": "nodemon -L",
     "test": "npx jest"
   },
   "dependencies": {
-    "@typegoose/typegoose": "^9.5.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

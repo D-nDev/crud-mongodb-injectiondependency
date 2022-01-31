@@ -1,0 +1,495 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Products API",
+    "description": "API for store products",
+    "version": "1.0.0",
+    "contact": {
+      "email": "diego-s.novaes@hotmail.com"
+    }
+  },
+  "paths": {
+    "/newproduct": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Create a product",
+        "description": "Create a new product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "stock": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "name": "Product sample",
+                  "description": "my product",
+                  "price": 14.75,
+                  "stock": 25
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "number"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "name": "Product sample",
+                  "description": "my product",
+                  "price": 14.75,
+                  "stock": 25,
+                  "_id": "61f73491cc2378ce753087a7",
+                  "created_at": "2022-01-31T01:00:01.357Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Syntax Error"
+          },
+          "409": {
+            "description": "Missing parameters"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "List all products",
+        "description": "List all products",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "61f73491cc2378ce753087a7",
+                    "name": "Product sample",
+                    "description": "my product",
+                    "price": 14.75,
+                    "stock": 25,
+                    "created_at": "2022-01-31T01:00:01.357Z"
+                  },
+                  {
+                    "_id": "61f73491cc2378ce753087a7",
+                    "name": "Product sample2",
+                    "description": "my product2",
+                    "price": 14.75,
+                    "stock": 25,
+                    "created_at": "2022-01-31T01:00:01.357Z"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Syntax Error"
+          },
+          "404": {
+            "description": "No products found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Retrieve a product",
+        "description": "Retrieve one Product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "stock": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "_id": "61f73491cc2378ce753087a7",
+                  "name": "Product sample",
+                  "description": "my product",
+                  "price": 14.75,
+                  "stock": 25,
+                  "created_at": "2022-01-31T01:00:01.357Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Syntax Error/ID malformated"
+          },
+          "404": {
+            "description": "ID not found"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/updateoneproduct/{id}": {
+      "patch": {
+        "tags": ["Products"],
+        "summary": "Update a product",
+        "description": "Update one product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "stock": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "name": "Product updated sample",
+                "description": "my updated product",
+                "price": 17,
+                "stock": 28
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "creation_time": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "_id": "61f73491cc2378ce753087a7",
+                  "name": "Product updated sample",
+                  "description": "my updated product",
+                  "price": 17,
+                  "stock": 28,
+                  "created_at": "2022-01-31T01:00:01.357Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Syntax Error/ID malformated"
+          },
+          "404": {
+            "description": "Product ID not found"
+          },
+          "409": {
+            "description": "Missing parameters"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/updateallproducts": {
+      "patch": {
+        "tags": ["Products"],
+        "summary": "Update products",
+        "description": "Update all products",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "stock": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "name": "Update my product Sample",
+                "description": "update my product",
+                "price": 28,
+                "stock": 17
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "creation_time": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "61f73491cc2378ce753087a7",
+                    "name": "Product updated sample",
+                    "description": "my updated product",
+                    "price": 14.75,
+                    "stock": 25,
+                    "created_at": "2022-01-31T01:00:01.357Z"
+                  },
+                  {
+                    "_id": "61f73491cc2378ce753087a7",
+                    "name": "Product updated sample2",
+                    "description": "my updated product2",
+                    "price": 14.75,
+                    "stock": 25,
+                    "created_at": "2022-01-31T01:00:01.357Z"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "No products to be updated"
+          },
+          "409": {
+            "description": "Missing parameters"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/deleteoneproduct/{id}": {
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Delete a Product",
+        "description": "Delete one product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "success": "Product deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Syntax Error/ID malformated"
+          },
+          "404": {
+            "description": "ID not found/not provided"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/deleteallproducts": {
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Delete products",
+        "description": "Delete all products",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "success": "All Products deleted"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products to be deleted"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    }
+  }
+}

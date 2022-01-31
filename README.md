@@ -15,8 +15,6 @@
 
 Crud API using mongoose as ODM for MongoDB, as well using Dependency Injection and inversion
 
-<br/>
-
 ## 🚀 Technologies
 
 - [Node]
@@ -24,8 +22,6 @@ Crud API using mongoose as ODM for MongoDB, as well using Dependency Injection a
 - [Mongoose]
 - [TypeScript]
 - [Express]
-
-<br/>
 
 ## 🏁 Running
 
@@ -60,7 +56,7 @@ Server will be available at:
 
 - localhost:4000/docs - Swagger Docs
 
-<hr><br/>
+<hr>
 
 ## Dependencies(If you'll not use docker)
 

@@ -1,5 +1,6 @@
 <div align="center" id="top">
   <img align="center" width="300px" src="https://miro.medium.com/max/300/1*fY5KPXK0C6csHKhnXkQQ8g.png" alt="Mongodb Icon" />
+  <img align="center" width="300px" src="https://i.imgur.com/FxX9HZh.png" />
 </div>
 
 <h1 align="center">MongoDB Crud API</h1>
@@ -67,7 +68,8 @@ For this project you'll need:
 - Postman(Highly Recommended)
 - Mongo Compass(Recommended)
 - NPM or Yarn
-  Clone the project
+
+Clone the project
 
 ```bash
   git clone https://github.com/D-nDev/crud-mongodb-injectiondependency.git

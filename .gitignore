@@ -4,3 +4,4 @@ dist
 logs/*
 src/logs
 dist/logs
+test.md
